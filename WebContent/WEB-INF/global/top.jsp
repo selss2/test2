@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8" />
-	<link rel="stylesheet" href="${css}/global.css" />
 	<title>한빛아카데미</title>
+	<link rel="stylesheet" href="${css}/global.css" />
 </head>
 <body>
