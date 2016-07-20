@@ -1,6 +1,7 @@
 package home;
 
 import java.io.IOException;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet({"/home.do"})
+@WebServlet({"/home.do", "/top.do", "/hearder.do","/footer.do","end.do"})
 public class HomeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -27,8 +28,8 @@ public class HomeController extends HttpServlet {
 		RequestDispatcher dis = request.getRequestDispatcher("/WEB-INF/global/"+view+".jsp");
 		dis.forward(request, response);
 	}
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
