@@ -1,4 +1,4 @@
-/*package member;
+package member;
 
 import java.io.IOException;
 
@@ -86,4 +86,4 @@ public class MemberController extends HttpServlet {
 		RequestDispatcher dis = request.getRequestDispatcher("/WEB-INF/" + this.directory + "/" + this.view + ".jsp");
 		dis.forward(request, response);
 	}
-}*/
+}
