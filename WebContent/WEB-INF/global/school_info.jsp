@@ -7,7 +7,7 @@
 	<meta charset="UTF-8" />
 <title>학교소개</title>
 <div class="box" style="margin: 0 auto;"></div>
-<link rel="stylesheet" href=" ${css}/member.css" />
+<link rel="stylesheet" href=" ${context}/member.css" />
 </head>
 
 <body>

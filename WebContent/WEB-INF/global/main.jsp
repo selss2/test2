@@ -9,7 +9,7 @@
 </head>
 <body>
 <jsp:include page="header.jsp" />
-<jsp:include page="navi.jsp" />
+<jsp:include page="nav.jsp" />
 <div id="section">
 <h2>회원관리</h2>
 <p>London is the capital city of England. It is the most populous city in the United Kingdom,

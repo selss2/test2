@@ -3,11 +3,11 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8" />
-	<title>index</title>
+	<title>Document</title>
 </head>
 <body>
-	<form action="${context}/home.do">
-	<input type="submit" value="홈으로">
-	</form>
+		<a href ="${context}/intro.do?page=home">홈으로</a>
+	<!-- 	<input type="submit" value="홈으로" />
+	</form> -->
 </body>
 </html>
