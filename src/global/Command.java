@@ -13,11 +13,9 @@ public class Command implements Orderable{
 		this.directory = directory;
 		this.action = action;
 		this.page = page;
-		this.setView(page);
+		this.setView();
 	}
-	public Command(String directory, String action,String page, String keyword, String ketField) {
-	}
-	@Override
+		
 	public void execute() {
 		
 	}
@@ -43,10 +41,9 @@ public class Command implements Orderable{
 	public String getView() {
 		return view;
 	}
-	public void setView(String page) {
-		this.view = "WEB-INF/"+this.directory+"/"+page+".jsp";
-	}
+
 	public void setView() {
-		this.view = "WEB-INF/"+this.directory+"/"+this.action+".jsp";
+		this.view = "WEB-INF/"+this.directory+"/"+this.page+".jsp";
 	}
-}
+
+	}

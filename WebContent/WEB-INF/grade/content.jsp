@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <div style="tex-align : center">
 	<div style="width: 300px; margin: 0auto; text-align: Left;">
-		<h1>성적 서비스</h1> <br />
+		<h1>성적 서비스</h1>
 		<ol>
 			<li><a href="${context}/grade/login.do">로그인</a></li>
 			<li><a href="${context}/grade/regist.do">등록</a></li>

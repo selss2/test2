@@ -28,12 +28,9 @@
 	</form>
 	<embed src="${img}/starwars.gif">
 		<h1>탈퇴</h1> 
-	<a href="${context}/index.jsp">
-		<img src="${img}/home.png" alt="home" style="width: 30px"/>
-	</a>
-	<a href="${context}/member_controller.jsp">
-		<img src="${img}/member.jpg" alt="member" style="width: 30px"/>
-	</a>
+	<a href="${context}/member/member_controller.jsp"><img src="${img}/member.jpg" alt="member" style="width:30px" /></a>
+			<a href="${context}/index.jsp">		<img src="${img}/home.png" alt="member" style="width:30px" />
+		</a>
 	</div>
 	
 </body>

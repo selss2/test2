@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <div style="tex-align : center">
 	<div style="width: 300px; margin: 0auto; text-align: Left;">
-		<h1>은행 서비스</h1> <br />
+		<h1>은행 서비스</h1>
 		<ol>
 			<li><a href="${context}/bank/add.do">계좌추가</a></li>
 			<li><a href="${context}/bank/deposit.do">입금</a></li>

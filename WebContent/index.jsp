@@ -6,7 +6,7 @@
 	<title>Document</title>
 </head>
 <body>
-		<a href ="${context}/intro.do?page=home">홈으로</a>
+		<a href ="${context}/home.do">홈으로</a>
 	<!-- 	<input type="submit" value="홈으로" />
 	</form> -->
 </body>

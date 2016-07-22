@@ -37,7 +37,7 @@
 		<table id="member_detail">
 				<tr>
 				<td rowspan="4" style="width:30%">
-				<img src="${img}/member/<%=service.show().getProfileImg()%>" alt="W3Schools.com" width="104"
+				<img src="${img}/member/<%=service.show().getProfileImg()%>" alt="profileImg" width="104"
 			height="142"></td>
 				<td style="width:20%" class="font_bold bg_color_yellow">ID</td>
 				<td style="width:40%"><%= service.show().getId() %></td>
