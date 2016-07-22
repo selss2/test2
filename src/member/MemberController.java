@@ -53,11 +53,16 @@ public class MemberController extends HttpServlet {
 					Separator.command.setView();
 				}
 			break;
+		case "detail": 
+			Separator.command.setView();
+			break;	
+
 		case "update": 
-			mem.getId(); mem.getName();
+			mem.setPw(request.getParameter("pw"));
+			mem.setEmail(request.getParameter("email"));
+			service.update(mem);
 			break;	
 		case "delete": break;	
-		case "detail": break;	
 		case "logout": break;	
 		case "count": break;	
 // ---------------------------------------- //
