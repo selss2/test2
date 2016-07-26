@@ -29,7 +29,7 @@ public class GradeDAO {
 						Constants.USER_PW)
 				.getConnection();
 	}
-
+	
 	public int insert(GradeBean g){
 		int result = 0;
 		String sql="insert into grade(seq,grade,java,sql,html,javascript,id,exam_date)"

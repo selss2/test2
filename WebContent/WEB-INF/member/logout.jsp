@@ -21,7 +21,8 @@
 		<input type="hidden" name="pw" value="<%=service.show().getPw() %>" />
 		<input type="submit" value="로그아웃"  />
 	</form>
-	
+<a href="${context}/member.do"><img src="${img}/member.png" alt="member" style="width:30px" /></a>
+<a href="${context}/global.do"><img src="${img}/home.png" alt="home" style="width:30px" /></a>
 	</div>	
 </body>
 </html>

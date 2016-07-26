@@ -3,7 +3,7 @@
     
 <jsp:include page="../global/top.jsp" />
 <jsp:include page="../global/header.jsp" />
-<jsp:include page="../global/nav.jsp" />
+<jsp:include page="../global/navi.jsp" />
 <body>
 	<div class="box">
 		<h1>학교 소개</h1>

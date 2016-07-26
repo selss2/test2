@@ -31,7 +31,8 @@
 	<a href="${context}/member/member_controller.jsp"><img src="${img}/member.jpg" alt="member" style="width:30px" /></a>
 			<a href="${context}/index.jsp">		<img src="${img}/home.png" alt="member" style="width:30px" />
 		</a>
+<a href="${context}/member.do"><img src="${img}/member.png" alt="member" style="width:30px" /></a>
+<a href="${context}/global.do"><img src="${img}/home.png" alt="home" style="width:30px" /></a>
 	</div>
-	
 </body>
 </html>

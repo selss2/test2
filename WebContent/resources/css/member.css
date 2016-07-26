@@ -1,2 +1,22 @@
 @CHARSET "UTF-8";
-div.box {border: 5px solid black;margin: 0 auto; width: 600px;text-align: center;}
+#member_detail{border: 1px solid gray;width:100%;height:400px;margin:0 auto; border-collapse: collapse;}
+#member_detail tr{border: 1px solid gray;hetigh:20%}
+#member_detail tr td{border: 1px solid gray;}
+.font_bold{font-weght:bold;}
+.bg_color_yellow{background-color: yellow}
+
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>

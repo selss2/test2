@@ -35,10 +35,30 @@ public class MemberDAO {
 		}
 	}
 	public int insert(MemberBean mem){
-		String sql = "insert into member(id,pw,name,reg_date,ssn)"
-				+ "values('"+mem.getId()+"','"+mem.getPw()+"','"+mem.getName()
-				+"','"+mem.getRegDate()+"','"+mem.getSsn()+"')";
-		return exeUpdate(sql);
+		int result = 0;
+		String sql = "insert into member(id,pw,name,reg_date,ssn,email,profile_img,phone)"
+				+ "values(?,?,?,?,?,?,?,?)";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, mem.getId());
+			pstmt.setString(2, mem.getPw());
+			pstmt.setString(3, mem.getName());
+			pstmt.setString(4, mem.getRegDate());
+			pstmt.setString(5, mem.getSsn());
+			pstmt.setString(6, mem.getEmail());
+			pstmt.setString(7, "default.jpg");
+			pstmt.setString(8, mem.getPhone());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (result==1) {
+			System.out.println("DAO에서 가입 성공");
+		} else {
+			System.out.println("DAO에서 가입 실패");	
+		}
+		return result;
 	}
 	public int update(MemberBean mem){
 		String sql = "update member"
@@ -70,7 +90,6 @@ public class MemberDAO {
 			stmt = con.createStatement();
 			result = stmt.executeUpdate(sql);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -89,11 +108,6 @@ public class MemberDAO {
 		String sql="select * from member";
 		List<MemberBean> list = new ArrayList<MemberBean>();
 		try {
-			Class.forName(Constants.ORACLE_DRIVER);
-			con=DriverManager.getConnection(
-					Constants.ORACLE_URL,
-					Constants.USER_ID,
-					Constants.USER_PW);
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(sql);
 			while(rs.next()){
@@ -102,7 +116,7 @@ public class MemberDAO {
 					t.setPw(rs.getString("PW"));
 					t.setName(rs.getString("NAME"));
 					t.setEmail(rs.getString("EMAIL"));
-					t.setGenderAndBirth("SSN");
+					/*t.setGenderAndBirth("SSN");*/
 					t.setRegDate(rs.getString("REG_DATE"));
 					t.setProfileImg(rs.getString("PROFILE_IMG"));
 				list.add(t);
@@ -115,18 +129,14 @@ public class MemberDAO {
 	}
 	// findByPK
 	public MemberBean findById(String pk) {
-		String sql = "select * from member where id = '"+pk+"'";
-		MemberBean temp = new MemberBean();
+		String sql = "select * from member where id = ?";
+		MemberBean temp = null; 
 		try {
-			Class.forName(Constants.ORACLE_DRIVER);
-			con = DriverManager.getConnection(
-					Constants.ORACLE_URL,
-					Constants.USER_ID,
-					Constants.USER_PW
-					);
-			stmt = con.createStatement();
-			rs = stmt.executeQuery(sql);
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, pk);
+			rs = pstmt.executeQuery();
 			if(rs.next()){
+				temp = new MemberBean();
 				temp.setId(rs.getString("ID"));
 				temp.setPw(rs.getString("PW"));
 				temp.setName(rs.getString("NAME"));
@@ -134,19 +144,43 @@ public class MemberDAO {
 				temp.setGenderAndBirth(rs.getString("SSN"));
 				temp.setRegDate(rs.getString("REG_DATE"));
 				temp.setProfileImg(rs.getString("PROFILE_IMG"));
+				temp.setPhone(rs.getString("PHONE"));
+				System.out.println("DAO에서 ID존재 체크:"+temp.getId());
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("DAO 결과(생년월일):"+temp.getBirth());
 		return temp;
 	}
 	// findByNotPK
 	public List<MemberBean> findByName(String name) {
-		String sql = "select * from member where name ='"+name+"'";
+		String sql = "select * from member where name =?";
+		List<MemberBean> list = new ArrayList<MemberBean>();
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, name);
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				MemberBean temp = new MemberBean();
+				temp = new MemberBean();
+				temp.setId(rs.getString("ID"));
+				temp.setPw(rs.getString("PW"));
+				temp.setName(rs.getString("NAME"));
+				temp.setEmail(rs.getString("EMAIL"));
+				temp.setGenderAndBirth(rs.getString("SSN"));
+				temp.setRegDate(rs.getString("REG_DATE"));
+				temp.setProfileImg(rs.getString("PROFILE_IMG"));
+				temp.setPhone(rs.getString("PHONE"));
+				System.out.println("DAO에서 NAME존재 체크:"+temp.getName());
+				list.add(temp);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		return null;
+		return list;
 	}
 	// count
 	public int count() {
@@ -201,6 +235,7 @@ public class MemberDAO {
 				loginOk = true;
 			}
 		}
+		System.out.println("LOGIN_OK ?"+loginOk);
 		return loginOk;
 	}
 	public boolean existId(String id){
@@ -225,8 +260,5 @@ public class MemberDAO {
 		return existOK;
 	}
 }
-
-
-
 
 

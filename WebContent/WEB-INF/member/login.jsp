@@ -13,7 +13,8 @@
 		<input type="reset" value="취소" />
 		
 	</form>
-	
+<a href="${context}/member.do"><img src="${img}/member.png" alt="member" style="width:30px" /></a>
+<a href="${context}/global.do"><img src="${img}/home.png" alt="home" style="width:30px" /></a>
 	</div>	
 <jsp:include page="../global/footer.jsp"/>
 <jsp:include page="../global/end.jsp"/>

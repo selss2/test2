@@ -7,72 +7,125 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import global.DispatcherServlet;
+import global.ParamMap;
 import global.Separator;
+import subject.SubjectBean;
+import subject.SubjectMember;
+import subject.SubjectService;
+import subject.SubjectServiceImpl;
 
 @WebServlet("/member.do")
 public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("===MemberController===");
+		System.out.println("=== member 컨트롤러 진입===");
+		HttpSession session = request.getSession();
 		Separator.init(request,response);
 		MemberService service = MemberServiceImpl.getInstance();
-		MemberBean mem = new MemberBean();
-
-		switch (Separator.command.getAction()){
+		SubjectService subjService =SubjectServiceImpl.getInstance();
+		MemberBean member = new MemberBean();
+		SubjectBean subject = new SubjectBean();
+		SubjectMember sm = new SubjectMember();
+		
+		System.out.println("액션 ? "+Separator.command.getAction());
+		switch (Separator.command.getAction()) {
+		case "move":
+			DispatcherServlet.send(request, response, Separator.command);
+			break;
+		case "detail":
+			DispatcherServlet.send(request, response, Separator.command);
+			break;
 		case "login":
-			mem.setId(request.getParameter("id"));
-			mem.setPw(request.getParameter("pw"));
-			String name = service.login(mem);
-			if (name.equals("")) {
+			member.setId(request.getParameter("id"));
+			member.setPw(request.getParameter("pw"));
+			sm = service.login(member);
+			if(member.getId().equals("fail")){
+				System.out.println("컨트롤러 : 로그인실패");
 				Separator.command.setPage("login");
 				Separator.command.setView();
-			} else {
-				Separator.command.setDirectory(request.getParameter("directory"));
-				mem.setName(name);
-				request.setAttribute("abc", mem);
+			}else{
+				System.out.println("컨트롤러 : 로그인성공");
+				request.setAttribute("user", sm);
+				session.setAttribute("user", sm);
+				Separator.command.setDirectory("global");
+				Separator.command.setView();
 			}
+			DispatcherServlet.send(request, response, Separator.command);
 			break;
 		case "regist":
-			mem.setId(request.getParameter("id"));
-			mem.setPw(request.getParameter("pw"));
-			mem.setName(request.getParameter("name"));
-			mem.setEmail(request.getParameter("email"));
-			mem.setSsn(request.getParameter("ssn"));
-			mem.setRegDate();
-			String reg = service.regist(mem);
-			System.out.println("reg : "+reg);
-			
-				if (reg.equals("")) {
-					Separator.command.setPage("regist");
-					Separator.command.setView();
-				} else {
-					Separator.command.setPage("login");
-					Separator.command.setView();
-				}
+			member.setId(request.getParameter("id"));
+			member.setPw(request.getParameter("pw"));
+			member.setName(request.getParameter("name"));
+			member.setGenderAndBirth(request.getParameter("ssn"));
+			member.setRegDate();
+			member.setPhone(request.getParameter("phone"));
+			member.setEmail(request.getParameter("email"));
+			System.out.println("전공 :::"+request.getParameter("major"));
+			System.out.println("수강과목 :::"+ParamMap.getValues(request, "subject"));
+			if (service.regist(member).equals("fail")) {
+				System.out.println("컨트롤러 : 회원가입 실패");
+				Separator.command.setPage("regist");
+				Separator.command.setView();
+			} else {
+				System.out.println("컨트롤러 : 회원가입 성공");
+				subject.setId(request.getParameter("id"));
+				subject.setMajor(request.getParameter("major"));
+				subject.setSubjects(ParamMap.getValues(request, "subject"));
+				subjService.insert(subject);
+				Separator.command.setPage("login");
+				Separator.command.setView();
+			}
+			DispatcherServlet.send(request, response, Separator.command);
 			break;
-		case "detail": 
+		
+		case "update":
+			member = (MemberBean) session.getAttribute("user");
+			member.setEmail(request.getParameter("email"));
+			member.setPw(request.getParameter("pw"));
+			service.update(member);
+			DispatcherServlet.send(request, response, Separator.command);
+			break;
+		case "delete":
+			member = (MemberBean) session.getAttribute("user");
+			session.invalidate();
+			service.delete(member);
+			Separator.command.setDirectory("home");
+			Separator.command.setPage("main");
 			Separator.command.setView();
-			break;	
-
-		case "update": 
-			mem.setPw(request.getParameter("pw"));
-			mem.setEmail(request.getParameter("email"));
-			service.update(mem);
-			break;	
-		case "delete": break;	
-		case "logout": break;	
-		case "count": break;	
-// ---------------------------------------- //
-		case "list": break;	
-		case "find_by": break;	
-			
+			DispatcherServlet.send(request, response, Separator.command);
+			break;
+		case "logout":
+			session.invalidate();
+			Separator.command.setDirectory("home");
+			Separator.command.setPage("main");
+			Separator.command.setView();
+			DispatcherServlet.send(request, response, Separator.command);
+			break;
+		case "list":
+			request.setAttribute("list", service.list());
+			DispatcherServlet.send(request, response, Separator.command);
+			break;
+		case "find_by_id":
+			request.setAttribute("member", service.findById(request.getParameter("keyword")));
+			DispatcherServlet.send(request, response, Separator.command);
+			break;
+		case "find_by_name":
+			request.setAttribute("list", service.findBy(request.getParameter("keyword")));
+			break;
+		case "count":
+			request.setAttribute("count", service.count()); 
+			Separator.command.setPage("count");
+			Separator.command.setView();
+			DispatcherServlet.send(request, response, Separator.command);
+			break;
 		default:
 			break;
 		}
-		DispatcherServlet.send(request, response, Separator.command);
+		
 	}
-	}
-
+	
+}

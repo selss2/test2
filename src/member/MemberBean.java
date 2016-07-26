@@ -4,10 +4,11 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
+
 public class MemberBean implements Serializable{
 	private static final long serialVersionUID = 1L;
-	
-	private String id,pw,name,regDate,gender,ssn,profileImg,email; 
+	private String id,pw,name,regDate,gender,ssn,
+		profileImg,email,phone; 
 	private int birth;
 	
 	public MemberBean() {}
@@ -104,10 +105,12 @@ public class MemberBean implements Serializable{
 		String now = new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis()));
 		String[] ssnArr = ssn.split("-");
 		String[] nowArr = now.split("-");
+		System.out.println("넘버포맷"+ssnArr[0]);
 		int ssnBirth = (Integer.parseInt(ssnArr[0]));
 		int ssnGender = (Integer.parseInt(ssnArr[1]));
 		int thisYear = (Integer.parseInt(nowArr[0]));
 		int age = 0;
+		this.ssn = ssn;
 		switch (ssnGender) {
 		case 1: case 5: 
 			this.gender="남"; 
@@ -143,6 +146,26 @@ public class MemberBean implements Serializable{
 	public int getBirth() {
 		return birth;
 	}
+	
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	/* gender 와 birth setter 는 통합함
+	 public void setGender(String gender) {
+		this.gender = gender;
+	}
+	*/
+	/* gender 와 birth setter 는 통합함
+	public void setBirth(int birth) {
+		this.birth = birth;
+	}
+	*/
 
 	@Override
 	public String toString() {
